@@ -15,22 +15,43 @@ class Forgot extends Component {
     super(props);
     this.state = {
       forgot: false,
+      invalid:false,
       email:"",
+      disable:false,
     };
-
   }
 
   forgot() {
     let email = document.getElementById('email').value;
 
+    if (this.state.disable) {
+      return;
+    }
+
+    if(!this.validateEmail(email)) {
+      this.setState({
+        forgot: false,
+        invalid:true,
+      });
+      return;
+    }
+
+    document.getElementById('email').value = "";
+
     this.setState({
+      invalid:false,
       forgot: true,
       email: email,
+      disable:true,
     });
 
 
   }
 
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
 
 
 
@@ -46,8 +67,10 @@ class Forgot extends Component {
         <label className="label-form">email</label>
         <input className="text-input" id='email' ></input>
         </div>
-        <button className="button" onClick={this.forgot.bind(this)}>Reset Password!</button>
+        <button className="button" disable={this.state.disable} onClick={this.forgot.bind(this)}>Reset Password!</button>
         {this.state.forgot ?   <h5 className="sent">An email has been sent to {this.state.email}, follow the instructions in it to reset your password</h5>
+        : null}
+        {this.state.invalid ?   <h5 className="sent">Invalid Email address</h5>
         : null}
       </div>
     )
