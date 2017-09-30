@@ -19,7 +19,11 @@ class Login extends Component {
 
     alert(email+" " + secret);
 
-    this.props.history.push('/');
+    //this.props.history.push('/');
+  }
+
+  forgot() {
+    this.props.history.push('/forgot');
   }
 
   componentDidMount() {
@@ -29,16 +33,18 @@ class Login extends Component {
   render() {
     return (
       <div className="login-form">
-        <h1>Login to ShopSure Admin</h1>
+        <h1>ShopSure Admin</h1>
+        <h2>Login</h2>
         <div className="input-form">
-        <label className="label-form">Email:</label>
+        <label className="label-form">email</label>
         <input className="text-input" id='email' ></input>
         </div>
         <div className="input-form">
-        <label className="label-form">Password:</label>
-        <input className="text-input" id='password'></input>
+        <label className="label-form">password</label>
+        <input className="password-input" autoComplete="off" id='password'></input>
         </div>
-        <Button className="login-button" onClick={this.login.bind(this)}>Go!</Button>
+        <button className="button" onClick={this.login.bind(this)}>Go!</button>
+        <p><span onClick={this.forgot.bind(this)}>forgot password?</span></p>
       </div>
     )
   }

@@ -1,5 +1,41 @@
 h1{
   text-align: center;
+  margin:none;
+}
+
+h2{
+  text-align: center;
+  margin:none;
+}
+
+h5 {
+  text-align: center;
+  margin:none;
+  font-size: small;
+}
+
+p {
+  text-align: right;
+  font-style: italic;
+  font-size: 2.25vh;
+  padding:2%;
+}
+
+p span:hover{
+  font-weight:bold;
+  text-decoration: underline;
+}
+
+h5 span{
+  font-weight: bold;
+  color:#e42646;
+  font-size:3vh;
+}
+
+.sent{
+  font-weight: bold;
+  color:#e42646;
+  font-size:3vh;
 }
 
 .login-form{
@@ -22,18 +58,48 @@ h1{
   padding:2%;
 }
 
-/*.login-button{
-  width:75%;
-}*/
+.button{
+  border-style: none;
+  border-radius: 5px;
+  height:10vh;
+  background-color:#d8d8d8;
+  color:#9d9d9d;
+  cursor: pointer;
+  font-size: 6vh;
+  width:90%;
+  margin:0 auto;
+  margin-top:3%;
+}
+
+.button:hover{
+  background-color:#9d9d9d;
+  color:#d8d8d8;
+}
 
 .label-form {
 flex-grow: 1;
-flex-basis:2;
+flex-basis:1;
 width:100%;
+
 }
 
 .text-input{
 flex-grow: 2;
-flex-basis:10;
-width:160%;
+flex-basis:fill;
+width:250%;
+border-style: none;
+border-radius: 5px;
+padding-left:2%;
+
+
+}
+
+.password-input{
+  flex-grow: 2;
+  flex-basis:fill;
+  width:250%;
+  border-style: none;
+  border-radius: 5px;
+  padding-left:2%;
+  -webkit-text-security: disc;
 }

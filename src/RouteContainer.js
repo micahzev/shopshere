@@ -12,6 +12,7 @@ import Navbar from './Navbar.js';
 import App from './App.js';
 import Home from './components/user/Home.js';
 import Login from './components/Login.js';
+import Forgot from './components/Forgot.js';
 import DirectoryList from './components/user/DirectoryList.js';
 import CategoryShopList from './components/user/CategoryShopList.js';
 import ManageCategories from '~/src/components/categories/ManageCategories.js';
@@ -40,6 +41,8 @@ class RouteContainer extends Component {
         <Redirect from="/user" to="/user/directory" />
         <Redirect from="/" to="/shops" />
         <Route path="/login" component={ Login }>
+        </Route>
+        <Route path="/forgot" component={ Forgot }>
         </Route>
         <Route path="/" component={ App } onEnter={this.checkAuth}>
           <Route path="/viewer" component={ Viewer }>
