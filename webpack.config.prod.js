@@ -32,6 +32,10 @@ module.exports = {
       test: /\.css$/, // Only .css files
       loader: 'style!css' // Run both loaders
     },
+    {
+      test: /\.json$/,
+      loader: 'json'
+    },
     { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?limit=10000&mimetype=application/font-woff' },
     { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,   loader: 'url?limit=10000&mimetype=application/font-woff' },
     { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: 'url?limit=10000&mimetype=application/octet-stream' },

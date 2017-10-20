@@ -7,6 +7,7 @@ import '~/src/styles/shops.css';
 
 class Shops extends Component {
   render() {
+    debugger;
     return (
       <div>
       <Topbar />

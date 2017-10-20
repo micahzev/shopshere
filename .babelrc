@@ -1,8 +1,9 @@
 {
   "plugins": [
-    "babel-root-import"
+    "babel-root-import",
+    "transform-async-to-generator"
   ],
-  "presets": ["react", "es2015"],
+  "presets": ["react", "es2015","stage-0"],
   "env": {
     "development": {
       "plugins": [

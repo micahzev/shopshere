@@ -6,20 +6,71 @@ import { Input, ButtonInput, Modal, Button, DropdownButton, MenuItem, Grid, Row,
 import '~/node_modules/bootstrap/dist/css/bootstrap.css';
 import { routerMiddleware, push } from 'react-router-redux';
 
+import {
+  CognitoUserPool,
+  AuthenticationDetails,
+  CognitoUser
+} from "amazon-cognito-identity-js";
+
+import decode from 'jwt-decode';
+
 import '~/src/styles/login.css';
 
+import { UserPoolId, ClientId } from '~/src/config';
 
 class Login extends Component {
 
-  login() {
+  async login() {
+    try {
+      const loggedIn = await this.awslogin();
+      const storeId = decode(loggedIn.idToken.jwtToken)["custom:store-id"];
+      const accessExpiry = decode(loggedIn.accessToken.jwtToken)["exp"];
+      //
+      // console.log(storeId);
+      // console.log(accessExpiry);
+
+      const epochNow = Math.round(new Date().getTime()/1000.0);
+
+      document.getElementById('email').value = "";
+      document.getElementById('password').value = "";
+
+      if (epochNow < accessExpiry) {
+              this.props.history.push('/shops',[{storeId:storeId}]);
+      }
+
+
+
+    }
+    catch(e) {
+      // console.log(e);
+    }
+  };
+
+  awslogin() {
+
     let email = document.getElementById('email').value;
     let secret = document.getElementById('password').value;
+
+
     window.localStorage.setItem('secretKey', secret);
     window.localStorage.setItem('username', email);
 
-    alert(email+" " + secret);
+    const userPool = new CognitoUserPool({
+      UserPoolId: UserPoolId,
+      ClientId: ClientId
+    });
 
-    //this.props.history.push('/');
+    const user = new CognitoUser({ Username: email, Pool: userPool });
+    const authenticationData = { Username: email, Password: secret };
+    const authenticationDetails = new AuthenticationDetails(authenticationData);
+
+    return new Promise((resolve, reject) =>
+      user.authenticateUser(authenticationDetails, {
+        onSuccess: result => resolve(result),
+        onFailure: err => reject(err)
+      })
+    );
+
   }
 
   forgot() {
