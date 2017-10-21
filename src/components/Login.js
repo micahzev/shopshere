@@ -25,17 +25,26 @@ class Login extends Component {
       const loggedIn = await this.awslogin();
       const storeId = decode(loggedIn.idToken.jwtToken)["custom:store-id"];
       const accessExpiry = decode(loggedIn.accessToken.jwtToken)["exp"];
-      //
-      // console.log(storeId);
-      // console.log(accessExpiry);
+
+
 
       const epochNow = Math.round(new Date().getTime()/1000.0);
 
       document.getElementById('email').value = "";
       document.getElementById('password').value = "";
 
+      window.localStorage.setItem('value', storeId);
+
+      // console.log(storeId);
+      // console.log(accessExpiry);
+      // console.log(epochNow);
+
       if (epochNow < accessExpiry) {
-              this.props.history.push('/shops',[{storeId:storeId}]);
+              if ( storeId == 'admin'){
+                  this.props.history.push('/admin-backend');
+              } else {
+                  this.props.history.push('/backend');
+              }
       }
 
 
@@ -52,7 +61,7 @@ class Login extends Component {
     let secret = document.getElementById('password').value;
 
 
-    window.localStorage.setItem('secretKey', secret);
+    window.localStorage.setItem('secretKey', "loggedin");
     window.localStorage.setItem('username', email);
 
     const userPool = new CognitoUserPool({

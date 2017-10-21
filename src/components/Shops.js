@@ -6,22 +6,25 @@ import Topbar from '~/src/components/Topbar/Topbar';
 import '~/src/styles/shops.css';
 
 class Shops extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    debugger;
     return (
       <div>
-      <Topbar />
-      <div className='container content-box'>
-        <div className='row'>
-          <div className="column container-header">Shops</div>
-        </div>
-        <div className="row shops-section">
-          <ShopList />
-          <div className="shop-details">
-            { this.props.children }
+        <Topbar />
+        <div className='container content-box'>
+          <div className='row'>
+            <div className="column container-header">Shops</div>
+          </div>
+          <div className="row shops-section">
+            <ShopList />
+            <div className="shop-details">
+              { this.props.children }
+            </div>
           </div>
         </div>
-      </div>
       </div>
       );
   }

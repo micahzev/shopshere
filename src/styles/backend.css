@@ -1,0 +1,28 @@
+.adminlink:hover {
+  /*text-decoration: underline;*/
+  cursor: pointer;
+  color: #e42646;
+  font-weight: bold;
+}
+
+.adminlink{
+  padding: 2%;
+  padding-left: 10%;
+  text-align: left;
+}
+
+.fleche {
+  opacity:0;
+}
+
+.adminlink:hover .fleche {
+
+    opacity:1;
+}
+
+.admin-hello{
+  font-size: 5vh;
+  padding:5%;
+  margin: 0 auto;
+  text-align: center;
+}

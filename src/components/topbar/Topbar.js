@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 // import { connect } from 'react-redux';
 // import { Link } from 'react-router';
 // import { bindActionCreators } from 'redux';
@@ -22,14 +23,14 @@ render() {
                 <div className="b-topbar-section b-topbar-section-logo b-no-padding">
                   <LinkContainer to={ { pathname: `/` } }>
                     <a href="/" className="b-topbar-logo-link" bsStyle="primary" bsSize="large">
-                      <img src="/images/logo.png" alt="Bashbo" />
+                      <img src="/images/logo.png" alt="ShopSure" />
                     </a>
                   </LinkContainer>
                 </div>
 
                 <div className="b-topbar-section b-topbar-section-storedirectory">
-	                <LinkContainer to={ { pathname: `/shops` } }>
-	                  <button className="b-topbar-button" id="b-topbar-button-storedirectory" onclick="location.href = '/shops'">
+	                <LinkContainer to={ { pathname: `/stores` } }>
+	                  <button className="b-topbar-button" id="b-topbar-button-storedirectory" onclick="location.href = '/stores'">
 	                    <span className="b-icon b-icon-shop"></span>
 	                    <span className="b-text">Stores</span>
 	                  </button>
@@ -44,6 +45,24 @@ render() {
 	                  </button>
 	                </LinkContainer>
                 </div>
+
+								<div className="b-topbar-section b-topbar-section-storedirectory">
+									<LinkContainer to={ { pathname: `/applications` } }>
+										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/applications'">
+											<span className="b-icon"><Glyphicon glyph="pencil" /></span>
+											<span className="b-text">Vendor Applications</span>
+										</button>
+									</LinkContainer>
+								</div>
+
+								<div className="b-topbar-section b-topbar-section-storedirectory">
+									<LinkContainer to={ { pathname: `/users` } }>
+										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/users'">
+											<span className="b-icon"><Glyphicon glyph="user" /></span>
+											<span className="b-text">Users</span>
+										</button>
+									</LinkContainer>
+								</div>
 
               </div>
 
