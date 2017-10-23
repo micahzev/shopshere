@@ -268,6 +268,31 @@ const categories = (state = [], action) => {
   }
 };
 
+/////////////////////// APPLICATIONS ///////////////////////
+
+const application = (state, action) => {
+  switch (action.type) {
+    case types.EDIT_SHOP_FULFILLED:
+      if (state.id !== action.payload.id) {
+        return state;
+      }
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const applications = (state = [], action) => {
+  switch (action.type) {
+    case types.FETCH_APPLICATIONS_FULFILLED:
+      return action.payload;
+    case types.EDIT_APPLICATION_FULFILLED:
+      return state.map(t => application(t, action));
+    default:
+      return state;
+  }
+};
+
 
 /////////////////////// ROOT ///////////////////////
 
@@ -278,7 +303,8 @@ const rootReducer = combineReducers({
   viewpoints,
   products,
   hotspots,
-  categories
+  categories,
+  applications
 });
 
 export default rootReducer;

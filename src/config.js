@@ -7,6 +7,7 @@ module.exports = {
   productFolderURL: 'https://shopsphere.s3.amazonaws.com/product-images/',
   logoFolderURL: 'https://shopsphere.s3.amazonaws.com/logo-images/',
   apiURL: 'https://4rv33ibj84.execute-api.us-west-2.amazonaws.com/dev/data/',
+  apiURL2: 'https://smbm8cf4nk.execute-api.us-west-2.amazonaws.com/prod/',
   UserPoolId: "us-west-2_ZkVqszFmk",
   ClientId: "29jpg9roroortd1tif1ott3djr"
 };

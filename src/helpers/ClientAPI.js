@@ -3,6 +3,9 @@ import request from 'superagent';
 import { apiURL } from '~/src/config';
 const UrlAPI = apiURL;
 
+import { apiURL2 } from '~/src/config';
+const UrlAPI2 = apiURL2;
+
 ////////////////////////////////////// POST API /////////////////////////////////
 
 
@@ -14,7 +17,7 @@ function PostAPI(data, table) {
       .send(data)
       .end(function(err, res) {
         if (err || !res.ok) {
-          console.log('Oh no! error' + JSON.stringify(err));
+          // console.log('Oh no! error' + JSON.stringify(err));
         } else {
           //console.log('yay posted ' + JSON.stringify(res.text));
           resolve(JSON.parse(res.text));
@@ -60,7 +63,7 @@ function DeleteAPI(object, table) {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
             //console.log('yay got ' + JSON.stringify(res.body));
             resolve({
@@ -217,6 +220,25 @@ export function fetchAllViewpointsAPI() {
 
 
 
+export function fetchApplicationsAPI() {
+  return new Promise((resolve, reject) => {
+    var getResult = (() => {
+      request.get(UrlAPI2 + 'applications' + '/')
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          if (err || !res.ok) {
+            // console.log('Oh no! error' + JSON.stringify(err));
+          } else {
+            // console.log('yay got ' + JSON.stringify(res.body));
+            resolve(res.body);
+          }
+        })
+    })();
+  });
+}
+;
+
+
 ////////////////////////////////////// PATCH API /////////////////////////////////
 
 
@@ -268,3 +290,24 @@ export function connectProductToHotspotAPI(data) {
   return PatchAPI(data, 'hotspot');
 }
 ;
+
+
+/// API v2
+
+export function patchApplicationAPI(data) {
+  const id = data.id;
+  delete (data.id);
+  return new Promise((resolve, reject) => {
+    request.put(UrlAPI2 + 'applications/' + id)
+      .set('Content-Type', 'application/json')
+      .send(data)
+      .end(function(err, res) {
+        if (err || !res.ok) {
+          console.log('Oh no! error' + JSON.stringify(err));
+        } else {
+          console.log('yay posted ' + JSON.stringify(res.text));
+          resolve(JSON.parse(res.text));
+        }
+      })
+  });
+}
