@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { object } from 'prop-types';
+import { object, array } from 'prop-types';
 
 import Confirm from 'react-confirm-bootstrap';
 
