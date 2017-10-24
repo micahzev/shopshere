@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { array } from 'prop-types';
 
-import TableRow from '~/src/components/applications/TableRow';
+import ApprovedTableRow from '~/src/components/applications/ApprovedTableRow';
 import '~/src/styles/applications.css';
 
-class VendorGrid extends Component {
+class ApprovedVendorGrid extends Component {
 
   static propTypes = {
       applications: array.isRequired,
@@ -30,11 +30,14 @@ class VendorGrid extends Component {
     return (
       <div className="vendorGrid">
 
-        <h2 className="table-title">New Vendor Applications: </h2>
+        <h2 className="table-title">Approved Vendor Applications: </h2>
 
         <div className="headingRow">
           <div className="headingCell">
             Date Received
+          </div>
+          <div className="headingCell">
+            Date Approved
           </div>
           <div className="headingCell">
             Store Name
@@ -45,18 +48,12 @@ class VendorGrid extends Component {
           <div className="statusHeadingCell">
             Status
           </div>
-          <div className="actionHeadingCell">
-            Action
-          </div>
         </div>
         <hr className="rule"/>
         {applications.map((app)=>{
           return (
             <div key={app.id}>
-              <TableRow application={app} categories={categories}
-                boundPatchApplication={this.props.boundPatchApplication}
-                approveApplication={this.props.approveApplication.bind(this)}
-                rejectApplication={this.props.rejectApplication.bind(this)} />
+              <ApprovedTableRow application={app}/>
               <hr/>
             </div>
           )
@@ -68,4 +65,4 @@ class VendorGrid extends Component {
 }
 
 
-export default VendorGrid;
+export default ApprovedVendorGrid;

@@ -12,16 +12,8 @@ import * as types from '../constants/ActionTypes';
 
 const user = (state, action) => {
   switch (action.type) {
-    case 'ADD_USER':
-      return {
-        userid: action.userid,
-        username: action.username,
-        email: action.email,
-        password: action.password,
-        shops: [],
-        loggedIn: false,
-        isCurrentUser: false
-      };
+    case types.ADD_USER_FULFILLED:
+      return action.payload;
     case 'ADD_SHOP_TO_USER':
       if (state.userid !== action.userid) {
         return state;
@@ -51,11 +43,13 @@ const user = (state, action) => {
 
 const users = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_USER':
+    case types.ADD_USER_FULFILLED:
       return [
         ...state,
         user(undefined, action)
       ];
+    case types.FETCH_USERS_FULFILLED:
+      return action.payload;
     case 'ADD_SHOP_TO_USER':
       return state.map(t => user(t, action));
     case 'TOGGLE_LOGGED_IN':
@@ -272,7 +266,7 @@ const categories = (state = [], action) => {
 
 const application = (state, action) => {
   switch (action.type) {
-    case types.EDIT_SHOP_FULFILLED:
+    case types.EDIT_APPLICATION_FULFILLED:
       if (state.id !== action.payload.id) {
         return state;
       }
@@ -288,6 +282,11 @@ const applications = (state = [], action) => {
       return action.payload;
     case types.EDIT_APPLICATION_FULFILLED:
       return state.map(t => application(t, action));
+    case types.DELETE_APPLICATIONa_FULFILLED:
+        return [
+          ...state.slice(0, action.payload.index),
+          ...state.slice(action.payload.index + 1)
+        ]
     default:
       return state;
   }

@@ -65,8 +65,6 @@ class MyShopsDeleteShop extends Component {
 
     }
 
-
-
     return (
       <div>
 
@@ -81,7 +79,7 @@ class MyShopsDeleteShop extends Component {
           </Modal.Header>
           <Modal.Body className="modal-body-delete">
             <p>You are about to permanently delete this shop. This cannot be undone. Are you sure?</p>
-            
+
           </Modal.Body>
           <Modal.Footer>
             <ButtonInput className="b-float-right" type="submit" bsStyle="primary" onClick={ this.close.bind(this) }>No, close this window</ButtonInput>

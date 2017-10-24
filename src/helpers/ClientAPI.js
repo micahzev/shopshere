@@ -10,7 +10,7 @@ const UrlAPI2 = apiURL2;
 
 
 function PostAPI(data, table) {
-  data.secretKey = window.localStorage.getItem('secretKey');
+  data.secretKey = 'qqq';
   return new Promise((resolve, reject) => {
     request.post(UrlAPI + table + '/')
       .set('Content-Type', 'application/json')
@@ -19,7 +19,7 @@ function PostAPI(data, table) {
         if (err || !res.ok) {
           // console.log('Oh no! error' + JSON.stringify(err));
         } else {
-          //console.log('yay posted ' + JSON.stringify(res.text));
+          // console.log('yay posted' + JSON.stringify(res.text));
           resolve(JSON.parse(res.text));
         }
       })
@@ -53,19 +53,35 @@ export function addCategoryAPI(data) {
 }
 ;
 
+export function addUserAPI(data) {
+  return new Promise((resolve, reject) => {
+    request.post(UrlAPI2 + 'admin-users/')
+      .set('Content-Type', 'application/json')
+      .send(data)
+      .end(function(err, res) {
+        if (err || !res.ok) {
+          console.log('Oh no! error' + JSON.stringify(err));
+        } else {
+          console.log('yay posted ' + JSON.stringify(res.body));
+          resolve(res.body);
+        }
+      })
+  });
+};
+
 ////////////////////////////////////// DELETE API /////////////////////////////////
 
 
 function DeleteAPI(object, table) {
   return new Promise((resolve, reject) => {
     var getResult = (() => {
-      request.del(UrlAPI + table + '/' + object.ID + `?secretKey=${window.localStorage.getItem('secretKey')}`)
+      request.del(UrlAPI + table + '/' + object.ID + `?secretKey=qqq`)
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            // console.log('Oh no! error' + JSON.stringify(err));
+            console.log('Oh no! error' + JSON.stringify(err));
           } else {
-            //console.log('yay got ' + JSON.stringify(res.body));
+            console.log('yay got ' + JSON.stringify(res.body));
             resolve({
               index: object.index
             });
@@ -101,6 +117,26 @@ export function deleteViewpointAPI(object) {
 }
 ;
 
+
+export function deleteApplicationAPI(object) {
+  return new Promise((resolve, reject) => {
+    var getResult = (() => {
+      request.del(UrlAPI2 + 'applications/' + object.ID)
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          if (err || !res.ok) {
+            console.log('Oh no! error' + JSON.stringify(err));
+          } else {
+            console.log('yay got ' + JSON.stringify(res.body));
+            resolve({
+              index: object.index
+            });
+          }
+        })
+    })();
+  });
+}
+;
 ////////////////////////////////////// GET API /////////////////////////////////
 
 function GetPerShopAPI(shopID, table) {
@@ -238,6 +274,23 @@ export function fetchApplicationsAPI() {
 }
 ;
 
+export function fetchUsersAPI() {
+  return new Promise((resolve, reject) => {
+    var getResult = (() => {
+      request.get(UrlAPI2 + 'admin-users' + '/')
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          if (err || !res.ok) {
+            // console.log('Oh no! error' + JSON.stringify(err));
+          } else {
+            // console.log('yay got ' + JSON.stringify(res.body));
+            resolve(res.body);
+          }
+        })
+    })();
+  });
+}
+;
 
 ////////////////////////////////////// PATCH API /////////////////////////////////
 
@@ -245,7 +298,7 @@ export function fetchApplicationsAPI() {
 function PatchAPI(data, table) {
   const id = data.id;
   delete (data.id);
-  data.secretKey = window.localStorage.getItem('secretKey');
+  data.secretKey = 'qqq';
   return new Promise((resolve, reject) => {
     request.patch(UrlAPI + table + '/' + id)
       .set('Content-Type', 'application/json')
