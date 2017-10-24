@@ -21,6 +21,18 @@ class StoreGrid extends Component {
     }
   }
 
+  static propTypes = {
+      categories: array.isRequired
+    };
+
+    static defaultProps = {
+      categories: [{
+        text:"loading",
+        id:0
+      }],
+    };
+
+
 
   sortAlphabetically() {
 

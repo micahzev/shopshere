@@ -19,6 +19,19 @@ class StoreTableRow extends Component {
       };
   };
 
+  static propTypes = {
+      categories: array.isRequired
+    };
+
+    static defaultProps = {
+      categories: [{
+        text:"loading",
+        id:0
+      }],
+    };
+
+
+
   handleView = (e) => {
     e.preventDefault()
     this.setState({
@@ -78,7 +91,7 @@ class StoreTableRow extends Component {
       userTelephone: "nodata"
     };
 
-    const storeCategory = _.find(categories, {'id': shop.category})
+    const storeCategory = _.find(categories, {'id': shop.category}) ?  _.find(categories, {'id': shop.category}) : {text:"No category found", id:0};
 
     const activated = shop.isActivated ? "Activated" : "Deactivated";
 
