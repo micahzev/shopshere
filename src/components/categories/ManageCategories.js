@@ -16,19 +16,16 @@ class ManageCategories extends Component {
 
   render() {
     return (
-      <div>
-      <Topbar />
       <div className="categories container content-box">
         <div className="row shops-section">
           <div className="parent-of-list">
             <h2>Manage Categories</h2>
-          </div>  
-          <div className="shop-details">        
+          </div>
+          <div className="shop-details">
             <Edit />
             <Add />
           </div>
         </div>
-      </div>
       </div>
       );
   }

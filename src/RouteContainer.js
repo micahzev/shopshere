@@ -18,10 +18,12 @@ import DirectoryList from './components/user/DirectoryList.js';
 import CategoryShopList from './components/user/CategoryShopList.js';
 import ManageCategories from '~/src/components/categories/ManageCategories.js';
 import VendorApplications from './components/applications/VendorApplications.js';
-import ManageUsers from '~/src/components/user/ManageUsers.js';
+import ManageUsers from '~/src/components/users/ManageUsers.js';
 import ManageStores from '~/src/components/stores/ManageStores.js';
 import AdminBackend from '~/src/components/backend/AdminBackend.js';
-
+import AdminHome from '~/src/components/backend/AdminHome.js';
+import Backend from '~/src/components/backend/Backend.js';
+import BackendHome from '~/src/components/backend/BackendHome.js';
 
 
 class RouteContainer extends Component {
@@ -49,56 +51,44 @@ class RouteContainer extends Component {
     }
   }
 
+  checkAdminAuth(nextState, replace) {
+    let secret = window.localStorage.getItem('value');
+    if (secret !== 'admin') {
+      replace('/login');
+    }
+  }
+
   render() {
 
     return (
       <Router ref="router" history={ this.state.history }>
-          <Redirect from="/" to="/admin-backend" />
+          <Redirect from="/" to="/login" />
+          <Redirect from="/admin-backend" to="/admin-backend/home" component={ AdminHome } />
+          <Redirect from="/backend" to="/backend/home" component={ BackendHome } />
           <Route path="/login" component={ Login }>
           </Route>
           <Route path="/forgot" component={ Forgot }>
           </Route>
 
           <Route path="/" component={ App } onEnter={this.checkAuth}>
-
-
-              <Route path="/admin-backend" component={ AdminBackend }>
+              <Route path="/admin-backend" onEnter={this.checkAdminAuth} component={ AdminBackend }>
+                  <Route path="/admin-backend/home" component={ AdminHome }>
+                  </Route>
+                  <Route path="/admin-backend/stores" component={ ManageStores }>
+                  </Route>
+                  <Route path="/admin-backend/categories" component={ ManageCategories }>
+                  </Route>
+                  <Route path="/admin-backend/applications" component={ VendorApplications }>
+                  </Route>
+                  <Route path="/admin-backend/users" component={ ManageUsers }>
+                  </Route>
               </Route>
-
-              <Route path="/stores" component={ ManageStores }>
+              <Route path="/backend" component={ Backend }>
+                  <Route path="/backend/home" component={ BackendHome }>
+                  </Route>
               </Route>
-
-              <Route path="/categories" component={ ManageCategories }>
-              </Route>
-              <Route path="/applications" component={ VendorApplications }>
-              </Route>
-
-              <Route path="/users" component={ ManageUsers }>
-              </Route>
-
-
           </Route>
-
-          <Route path="/backend" component={ App } onEnter={this.checkAuth}>
-          <Redirect from="/" to="/shops" />
-          <Redirect from="/" to="/shops" />
-            <Route path="/backend" component={ Shops }>
-            </Route>
-            <Route path="/user" component={ Home }>
-              <Route path="/user/directory" component={ DirectoryList }>
-              </Route>
-              <Route path="/user/:category" component={ CategoryShopList }>
-              </Route>
-            </Route>
-            <Route path="/viewer" component={ Viewer }>
-            </Route>
-            <Route path="/viewerwidget" component={ ViewerWidget }>
-            </Route>
-            <Route path="/shops" component={ Shops }>
-              <Route path="/shops/:name" component={ Shop }>
-              </Route>
-            </Route>
-          </Route>
+          <Redirect from="/*" to="/login" component={ Login } />
       </Router>
       );
   }

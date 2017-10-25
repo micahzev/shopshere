@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Topbar from '~/src/components/Topbar/Topbar';
 
-class AdminBackend extends Component {
+
+class Backend extends Component {
 
   constructor(props) {
     super(props);
@@ -12,7 +12,6 @@ class AdminBackend extends Component {
   render() {
     return (
       <div className='container'>
-      <Topbar history={this.props.history} />
           <div>
             {this.props.children}
           </div>
@@ -21,4 +20,4 @@ class AdminBackend extends Component {
   }
 }
 
-export default AdminBackend;
+export default Backend;

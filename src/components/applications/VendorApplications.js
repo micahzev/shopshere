@@ -65,8 +65,6 @@ class VendorApplications extends Component {
 
 signup(email, password, shopid) {
 
-  console.log(email, password, shopid);
-
   const userPool = new AWSCognito.CognitoUserPool({
     UserPoolId: UserPoolId,
     ClientId: ClientId
@@ -142,12 +140,13 @@ emailUser(email, password){
 
             this.props.boundAddUser({
               email:shopObject.email,
-              userType:"Store Owner",
+              userType:"storeowner",
               userName: applicationObject.applicantName,
               userSurname: applicationObject.applicantSurname,
               shopid: createdShop.id,
-              userTelephone: applicationObject.storeTelephone
-            })
+              userTelephone: applicationObject.storeTelephone,
+              userStatus:"enabled"
+            });
 
             // email user informing them of approval
             this.emailUser(shopObject.email, tempPW);
@@ -219,8 +218,6 @@ async deleteApplication(applicationObject){
     const rejectedApplications = _.filter(applications, { 'applicationStatus': 'rejected' });
 
     return (
-      <div>
-      <Topbar />
       <div className="categories container content-box">
         <div className="row application-section">
           <div className="parent-of-application">
@@ -246,7 +243,6 @@ async deleteApplication(applicationObject){
             <hr/>
           </div>
         </div>
-      </div>
       </div>
       );
   }

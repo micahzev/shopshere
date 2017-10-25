@@ -8,6 +8,19 @@ import { Glyphicon } from 'react-bootstrap';
 
 class Topbar extends Component {
 
+	constructor(props) {
+    super(props);
+  }
+
+
+	signOut(){
+	  window.localStorage.setItem('secretKey', null);
+	  window.localStorage.setItem('username', null);
+		window.localStorage.setItem('value', null);
+		this.props.history.push('/login');
+	}
+
+
 render() {
 
 	return(
@@ -21,16 +34,16 @@ render() {
               <div className="b-topbar-left">
 
                 <div className="b-topbar-section b-topbar-section-logo b-no-padding">
-                  <LinkContainer to={ { pathname: `/` } }>
-                    <a href="/" className="b-topbar-logo-link" bsStyle="primary" bsSize="large">
+                  <LinkContainer to={ { pathname: `/admin-backend/home` } }>
+                    <a href="/admin-backend/home" className="b-topbar-logo-link" bsStyle="primary" bsSize="large">
                       <img src="/images/logo.png" alt="ShopSure" />
                     </a>
                   </LinkContainer>
                 </div>
 
                 <div className="b-topbar-section b-topbar-section-storedirectory">
-	                <LinkContainer to={ { pathname: `/stores` } }>
-	                  <button className="b-topbar-button" id="b-topbar-button-storedirectory" onclick="location.href = '/stores'">
+	                <LinkContainer to={ { pathname: `/admin-backend/stores` } }>
+	                  <button className="b-topbar-button" id="b-topbar-button-storedirectory" onclick="location.href = '/admin-backend/stores'">
 	                    <span className="b-icon b-icon-shop"></span>
 	                    <span className="b-text">Stores</span>
 	                  </button>
@@ -38,8 +51,8 @@ render() {
                 </div>
 
                 <div className="b-topbar-section b-topbar-section-storedirectory">
-	                <LinkContainer to={ { pathname: `/categories` } }>
-	                  <button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/categories'">
+	                <LinkContainer to={ { pathname: `/admin-backend/categories` } }>
+	                  <button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/admin-backend/categories'">
 	                    <span className="b-icon b-icon-category"></span>
 	                    <span className="b-text">Categories</span>
 	                  </button>
@@ -47,8 +60,8 @@ render() {
                 </div>
 
 								<div className="b-topbar-section b-topbar-section-storedirectory">
-									<LinkContainer to={ { pathname: `/applications` } }>
-										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/applications'">
+									<LinkContainer to={ { pathname: `/admin-backend/applications` } }>
+										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/admin-backend/applications'">
 											<span className="b-icon"><Glyphicon glyph="pencil" /></span>
 											<span className="b-text">Vendor Applications</span>
 										</button>
@@ -56,8 +69,8 @@ render() {
 								</div>
 
 								<div className="b-topbar-section b-topbar-section-storedirectory">
-									<LinkContainer to={ { pathname: `/users` } }>
-										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/users'">
+									<LinkContainer to={ { pathname: `/admin-backend/users` } }>
+										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/admin-backend/users'">
 											<span className="b-icon"><Glyphicon glyph="user" /></span>
 											<span className="b-text">Users</span>
 										</button>
@@ -71,12 +84,12 @@ render() {
                 <div className="b-topbar-section b-topbar-section-continue">
 
                   <div className="b-topbar-section b-topbar-section-storedirectory">
-										<LinkContainer to={ { pathname: `/login` } }>
-		                  <button className="b-topbar-button" id="b-topbar-button-signout" onclick="location.href = '/login'">
+										<div>
+		                  <button className="b-topbar-button" id="b-topbar-button-signout" onClick={this.signOut.bind(this)}>
 		                    <span className="b-icon b-icon-ui-signout"></span>
 		                    <span className="b-text">Sign Out</span>
 		                  </button>
-		                </LinkContainer>
+		                </div>
                   </div>
 
                 </div>

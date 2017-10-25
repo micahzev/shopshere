@@ -20,7 +20,25 @@ import { UserPoolId, ClientId } from '~/src/config';
 
 class Login extends Component {
 
+  constructor(props) {
+      super(props);
+      this.state = {
+        userMessage: "",
+      };
+  };
+
+  componentDidMount() {
+    window.localStorage.setItem('secretKey', null);
+	  window.localStorage.setItem('username', null);
+		window.localStorage.setItem('value', null);
+  }
+
   async login() {
+
+    await this.setState({
+          userMessage:""
+        });
+
     try {
       const loggedIn = await this.awslogin();
       const storeId = decode(loggedIn.idToken.jwtToken)["custom:store-id"];
@@ -35,10 +53,6 @@ class Login extends Component {
 
       window.localStorage.setItem('value', storeId);
 
-      // console.log(storeId);
-      // console.log(accessExpiry);
-      // console.log(epochNow);
-
       if (epochNow < accessExpiry) {
               if ( storeId == 'admin'){
                   this.props.history.push('/admin-backend');
@@ -51,7 +65,9 @@ class Login extends Component {
 
     }
     catch(e) {
-      // console.log(e);
+      this.setState({
+        userMessage:e.message
+      });
     }
   };
 
@@ -95,6 +111,7 @@ class Login extends Component {
       <div className="login-form">
         <h1>ShopSure Admin</h1>
         <h2>Login</h2>
+        <div>{this.state.userMessage}</div>
         <div className="input-form">
         <label className="label-form">email</label>
         <input className="text-input" id='email' ></input>

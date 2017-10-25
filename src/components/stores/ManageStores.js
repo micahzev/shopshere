@@ -68,8 +68,6 @@ async PatchShop(patchObject) {
     } = this.props;
 
     return (
-      <div>
-      <Topbar />
       <div className="categories container content-box">
         <div className="row store-section">
           <div className="parent-of-store">
@@ -88,7 +86,6 @@ async PatchShop(patchObject) {
 
           </div>
         </div>
-      </div>
       </div>
       );
   }
