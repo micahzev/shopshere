@@ -13,6 +13,7 @@ import App from './App.js';
 import Home from './components/user/Home.js';
 import Login from './components/Login.js';
 import Forgot from './components/Forgot.js';
+import Reset from './components/Reset.js';
 
 import DirectoryList from './components/user/DirectoryList.js';
 import CategoryShopList from './components/user/CategoryShopList.js';
@@ -24,6 +25,10 @@ import AdminBackend from '~/src/components/backend/AdminBackend.js';
 import AdminHome from '~/src/components/backend/AdminHome.js';
 import Backend from '~/src/components/backend/Backend.js';
 import BackendHome from '~/src/components/backend/BackendHome.js';
+import BackendProducts from '~/src/components/products/BackendProducts.js';
+import BackendViewpoints from '~/src/components/viewpoints/BackendViewpoints.js';
+import BackendSettingsWrapper from '~/src/components/backend/BackendSettingsWrapper.js';
+
 
 
 class RouteContainer extends Component {
@@ -58,6 +63,13 @@ class RouteContainer extends Component {
     }
   }
 
+  checkBackendAdminAuth(nextState, replace) {
+    let secret = window.localStorage.getItem('value');
+    if (secret == 'admin') {
+      replace('/login');
+    }
+  }
+
   render() {
 
     return (
@@ -65,10 +77,10 @@ class RouteContainer extends Component {
           <Redirect from="/" to="/login" />
           <Redirect from="/admin-backend" to="/admin-backend/home" component={ AdminHome } />
           <Redirect from="/backend" to="/backend/home" component={ BackendHome } />
-          <Route path="/login" component={ Login }>
-          </Route>
-          <Route path="/forgot" component={ Forgot }>
-          </Route>
+          <Route path="/login" component={ Login }></Route>
+          <Route path="/login/:email" component={ Login }></Route>
+          <Route path="/forgot" component={ Forgot }></Route>
+          <Route path="/reset/:email" component={ Reset }></Route>
 
           <Route path="/" component={ App } onEnter={this.checkAuth}>
               <Route path="/admin-backend" onEnter={this.checkAdminAuth} component={ AdminBackend }>
@@ -83,8 +95,16 @@ class RouteContainer extends Component {
                   <Route path="/admin-backend/users" component={ ManageUsers }>
                   </Route>
               </Route>
-              <Route path="/backend" component={ Backend }>
+              <Route path="/backend" onEnter={this.checkBackendAdminAuth} component={ Backend }>
                   <Route path="/backend/home" component={ BackendHome }>
+                  </Route>
+                  <Route path="/backend/products" component={ BackendProducts }>
+                  </Route>
+                  <Route path="/backend/viewpoints" component={ BackendViewpoints }>
+                  </Route>
+                  <Route path="/backend/settings" component={ BackendSettingsWrapper }>
+                  </Route>
+                  <Route path="/backend/managers" component={ BackendHome }>
                   </Route>
               </Route>
           </Route>

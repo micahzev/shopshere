@@ -3,33 +3,41 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 
-import { Image } from 'react-bootstrap';
+import List from '~/src/components/viewpoints/List';
+import Add from '~/src/components/viewpoints/Add';
+import Edit from '~/src/components/viewpoints/Edit';
+
 import fetch from '~/src/components/fetch';
 import { fetchShops } from '~/src/actions/shops';
-import { LinkContainer } from 'react-router-bootstrap';
-import '~/src/styles/backend.css';
 
-class BackendHome extends Component {
+class BackendViewpoints extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props);
   }
 
   render() {
 
-    const shopid = window.localStorage.getItem('value');
+    const shopID = window.localStorage.getItem('value');
 
-    const myshop = _.find(this.props.shops, {'id':shopid});
+    const thisShop = _.find(this.props.shops, {'id':shopID});
 
     return (
       <div className="categories container content-box">
         <div className="row shops-section">
           <div className="parent-of-list">
-            <Image src={ myshop.logoFile } responsive />
-            <div className="owner-hello">Welcome to <u>{myshop.name}</u> Backend ShopSure Administration</div>
+            <h2>Manage Your Viewpoints</h2>
           </div>
           <div className="shop-details">
-            Status: {myshop.name} is currently <u>{myshop.visible? "visible" : "not visible"}</u> on the ShopSure platform.
+          <div>
+            <div className="side">
+              <Edit shopID={ shopID } />
+            </div>
+            <div className="side">
+              <List shopID={ shopID } thisShop={ thisShop } />
+            </div>
+            <Add shopID={ shopID } />
+          </div>
           </div>
         </div>
       </div>
@@ -37,7 +45,7 @@ class BackendHome extends Component {
   }
 }
 
-const FetchedBackendHome = fetch(BackendHome, {
+const FetchedBackendViewpoints = fetch(BackendViewpoints, {
   actions: [ fetchShops ]
 });
 
@@ -54,4 +62,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FetchedBackendHome);
+export default connect(mapStateToProps, mapDispatchToProps)(FetchedBackendViewpoints);

@@ -31,6 +31,7 @@ class Login extends Component {
     window.localStorage.setItem('secretKey', null);
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
+
   }
 
   async login() {
@@ -91,8 +92,15 @@ class Login extends Component {
 
     return new Promise((resolve, reject) =>
       user.authenticateUser(authenticationDetails, {
-        onSuccess: result => resolve(result),
-        onFailure: err => reject(err)
+        onSuccess: (result) => {
+          resolve(result)
+        },
+        onFailure: (err) => {
+          reject(err)
+          this.setState({
+            userMessage:err.message
+          })
+        }
       })
     );
 
@@ -107,6 +115,9 @@ class Login extends Component {
   }
 
   render() {
+
+    const emailAddress = this.props.params.email ? this.props.params.email : "";
+
     return (
       <div className="login-form">
         <h1>ShopSure Admin</h1>
@@ -114,7 +125,7 @@ class Login extends Component {
         <div>{this.state.userMessage}</div>
         <div className="input-form">
         <label className="label-form">email</label>
-        <input className="text-input" id='email' ></input>
+        <input className="text-input" id='email' defaultValue={emailAddress}></input>
         </div>
         <div className="input-form">
         <label className="label-form">password</label>

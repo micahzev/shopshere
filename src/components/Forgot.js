@@ -8,6 +8,12 @@ import { routerMiddleware, push } from 'react-router-redux';
 
 import '~/src/styles/login.css';
 
+import {
+  CognitoUserPool,
+  CognitoUser
+} from "amazon-cognito-identity-js";
+
+import { UserPoolId, ClientId } from '~/src/config';
 
 class Forgot extends Component {
 
@@ -18,8 +24,10 @@ class Forgot extends Component {
       invalid:false,
       email:"",
       disable:false,
+      message:""
     };
   }
+
 
   forgot() {
     let email = document.getElementById('email').value;
@@ -38,15 +46,39 @@ class Forgot extends Component {
 
     document.getElementById('email').value = "";
 
-    this.setState({
-      invalid:false,
-      forgot: true,
-      email: email,
-      disable:true,
+    const userPool = new CognitoUserPool({
+      UserPoolId: UserPoolId,
+      ClientId: ClientId
     });
 
+    const user = new CognitoUser({ Username: email, Pool: userPool });
 
+    return new Promise((resolve, reject) =>
+      user.forgotPassword({
+        onSuccess: (result) => {
+          this.setState({
+            invalid:false,
+            forgot: true,
+            email: email,
+            disable:true,
+            message:""
+          });
+
+          resolve(result);
+          this.props.history.push('/reset/'+email);
+        },
+        onFailure: (err) => {
+          this.setState({
+            message:err.message
+          });
+          reject(err);
+        }
+      })
+    );
   }
+
+
+
 
   validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -60,16 +92,16 @@ class Forgot extends Component {
       <div className="login-form">
         <h1>ShopSure Admin</h1>
         <h2>Forgot Password</h2>
+
         <h5>An email will be sent to you in order to reset your password</h5>
 
+        <div>{this.state.message}</div>
 
         <div className="input-form">
         <label className="label-form">email</label>
         <input className="text-input" id='email' ></input>
         </div>
-        <button className="button" disable={this.state.disable} onClick={this.forgot.bind(this)}>Reset Password!</button>
-        {this.state.forgot ?   <h5 className="sent">An email has been sent to {this.state.email}, follow the instructions in it to reset your password</h5>
-        : null}
+        <button className="button" disable={this.state.disable} onClick={this.forgot.bind(this)}>Send Reset Password Code</button>
         {this.state.invalid ?   <h5 className="sent">Invalid Email address</h5>
         : null}
       </div>

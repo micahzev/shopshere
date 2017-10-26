@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 
+import StoreOwnerTopbar from '~/src/components/topbar/StoreOwnerTopbar';
+
 
 class Backend extends Component {
 
@@ -12,6 +14,7 @@ class Backend extends Component {
   render() {
     return (
       <div className='container'>
+      <StoreOwnerTopbar history={this.props.history} />
           <div>
             {this.props.children}
           </div>

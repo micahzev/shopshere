@@ -61,12 +61,12 @@ h5 span{
 .button{
   border-style: none;
   border-radius: 5px;
-  height:10vh;
+  height:8vh;
   background-color:#d8d8d8;
   color:#9d9d9d;
   cursor: pointer;
-  font-size: 6vh;
-  width:90%;
+  font-size: 4vh;
+  width:70%;
   margin:0 auto;
   margin-top:3%;
 }
@@ -77,16 +77,17 @@ h5 span{
 }
 
 .label-form {
-flex-grow: 1;
-flex-basis:1;
-width:100%;
+flex-grow: 10;
+flex-basis:10;
+width:20%;
+/*width:100%;*/
 
 }
 
 .text-input{
-flex-grow: 2;
-flex-basis:fill;
-width:250%;
+flex-grow: 20;
+flex-basis:20;
+/*width:250%;*/
 border-style: none;
 border-radius: 5px;
 padding-left:2%;
@@ -95,11 +96,53 @@ padding-left:2%;
 }
 
 .password-input{
-  flex-grow: 2;
-  flex-basis:fill;
-  width:250%;
+  flex-grow: 20;
+  flex-basis:20;
+  /*width:250%;*/
   border-style: none;
   border-radius: 5px;
   padding-left:2%;
   -webkit-text-security: disc;
+}
+
+.resetmessage {
+  text-align: center;
+}
+
+
+.resendbutton {
+  font-size: small;
+  margin:1%;
+  height:90%;
+  border-radius: 15px;
+  background-color: transparent;
+  box-shadow: none;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.resendbutton:active {
+background-color:#d8d8d8;
+color:white;
+}
+
+
+.reseterrormessage{
+  padding-left:10%;
+  color:red;
+
+}
+
+.clicklylink{
+  text-decoration: underline;
+  color:red;
+}
+
+.clicklylink:hover {
+  cursor: pointer;
+}
+
+
+.successResetMessage{
+  padding:5%;
 }
