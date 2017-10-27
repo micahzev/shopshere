@@ -60,9 +60,9 @@ export function addUserAPI(data) {
       .send(data)
       .end(function(err, res) {
         if (err || !res.ok) {
-          console.log('Oh no! error' + JSON.stringify(err));
+          // console.log('Oh no! error' + JSON.stringify(err));
         } else {
-          console.log('yay posted ' + JSON.stringify(res.body));
+          // console.log('yay posted ' + JSON.stringify(res.body));
           resolve(res.body);
         }
       })
@@ -79,9 +79,9 @@ function DeleteAPI(object, table) {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
-            console.log('yay got ' + JSON.stringify(res.body));
+            // console.log('yay got ' + JSON.stringify(res.body));
             resolve({
               index: object.index
             });
@@ -125,9 +125,29 @@ export function deleteApplicationAPI(object) {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
-            console.log('yay got ' + JSON.stringify(res.body));
+            // console.log('yay got ' + JSON.stringify(res.body));
+            resolve({
+              index: object.index
+            });
+          }
+        })
+    })();
+  });
+}
+;
+
+export function deleteUserAPI(object) {
+  return new Promise((resolve, reject) => {
+    var getResult = (() => {
+      request.del(UrlAPI2 + 'admin-users/' + object.ID)
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          if (err || !res.ok) {
+            // console.log('Oh no! error' + JSON.stringify(err));
+          } else {
+            // console.log('yay got ' + JSON.stringify(res.body));
             resolve({
               index: object.index
             });
@@ -149,7 +169,7 @@ function GetPerShopAPI(shopID, table) {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
             //console.log('yay got ' + JSON.stringify(res.body));
             resolve(res.body["Items"]);
@@ -172,7 +192,7 @@ function GetPerViewpointAPI(shopID, viewpointID, table) {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
             //console.log('yay got ' + JSON.stringify(res.body));
             resolve(res.body["Items"]);
@@ -207,7 +227,7 @@ export function fetchShopsAPI() {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
             //console.log('yay got ' + JSON.stringify(res.body));
             resolve(res.body["Items"]);
@@ -225,7 +245,7 @@ export function fetchCategoriesAPI() {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
             //console.log('yay got ' + JSON.stringify(res.body));
             resolve(res.body["Items"]);
@@ -243,7 +263,7 @@ export function fetchAllViewpointsAPI() {
         .set('Content-Type', 'application/json')
         .end(function(err, res) {
           if (err || !res.ok) {
-            console.log('Oh no! error' + JSON.stringify(err));
+            // console.log('Oh no! error' + JSON.stringify(err));
           } else {
             //console.log('yay got ' + JSON.stringify(res.body));
             resolve(res.body["Items"]);
@@ -282,6 +302,7 @@ export function fetchUsersAPI() {
         .end(function(err, res) {
           if (err || !res.ok) {
             // console.log('Oh no! error' + JSON.stringify(err));
+
           } else {
             // console.log('yay got ' + JSON.stringify(res.body));
             resolve(res.body);
@@ -291,6 +312,28 @@ export function fetchUsersAPI() {
   });
 }
 ;
+
+export function fetchOneUserAPI(data) {
+  const id = data.id;
+  delete (data.id);
+  return new Promise((resolve, reject) => {
+    var getResult = (() => {
+      request.get(UrlAPI2 + 'admin-users/' + id )
+        .set('Content-Type', 'application/json')
+        .end(function(err, res) {
+          if (err || !res.ok) {
+            // console.log('Oh no! error' + JSON.stringify(err));
+            reject(err);
+          } else {
+            // console.log('yay got ' + JSON.stringify(res.body));
+            resolve(res.body);
+          }
+        })
+    })();
+  });
+}
+;
+
 
 ////////////////////////////////////// PATCH API /////////////////////////////////
 
@@ -356,9 +399,27 @@ export function patchApplicationAPI(data) {
       .send(data)
       .end(function(err, res) {
         if (err || !res.ok) {
-          console.log('Oh no! error' + JSON.stringify(err));
+          // console.log('Oh no! error' + JSON.stringify(err));
         } else {
-          console.log('yay posted ' + JSON.stringify(res.text));
+          // console.log('yay posted ' + JSON.stringify(res.text));
+          resolve(JSON.parse(res.text));
+        }
+      })
+  });
+}
+
+export function patchUserAPI(data) {
+  const id = data.id;
+  delete (data.id);
+  return new Promise((resolve, reject) => {
+    request.put(UrlAPI2 + 'admin-users/' + id)
+      .set('Content-Type', 'application/json')
+      .send(data)
+      .end(function(err, res) {
+        if (err || !res.ok) {
+          // console.log('Oh no! error' + JSON.stringify(err));
+        } else {
+          // console.log('yay posted ' + JSON.stringify(res.text));
           resolve(JSON.parse(res.text));
         }
       })

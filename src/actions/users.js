@@ -1,5 +1,5 @@
 import * as types from '../constants/ActionTypes';
-import { addUserAPI, fetchUsersAPI } from '~/src/helpers/ClientAPI';
+import { addUserAPI, fetchUsersAPI, fetchOneUserAPI, patchUserAPI, deleteUserAPI } from '~/src/helpers/ClientAPI';
 
 //action creators:
 export function unboundAddUser(data) {
@@ -21,3 +21,32 @@ export function fetchUsers(options) {
   }
 }
 ;
+
+export function fetchOneUser(options) {
+  return {
+    type: types.FETCH_ONE_USER,
+    payload: {
+      promise: fetchOneUserAPI(options)
+    }
+  }
+}
+;
+
+export function unboundPatchUser(data) {
+  return {
+    type: types.EDIT_USER,
+    payload: {
+      promise: patchUserAPI(data)
+    }
+  }
+}
+;
+
+export function deleteUser(object) {
+  return {
+    type: types.DELETE_PRODUCT,
+    payload: {
+      promise: deleteUserAPI(object)
+    }
+  }
+}

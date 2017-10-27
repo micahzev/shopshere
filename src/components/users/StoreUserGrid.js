@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { array } from 'prop-types';
 
-import UserTableRow from '~/src/components/users/UserTableRow';
+import StoreUserTableRow from '~/src/components/users/StoreUserTableRow';
 
 import '~/src/styles/admin-users.css';
 
-class UserGrid extends Component {
+class StoreUserGrid extends Component {
 
   constructor(props) {
     super(props);
@@ -16,7 +16,6 @@ class UserGrid extends Component {
   render() {
 
     let {
-      shops,
       users
     } = this.props;
 
@@ -44,9 +43,8 @@ class UserGrid extends Component {
         {users.map((user)=>{
           return (
             <div key={user.id}>
-              <UserTableRow
+              <StoreUserTableRow
                 user={user}
-                shops={shops}
                 boundPatchUser={this.props.boundPatchUser.bind(this)}
                 deleteUser={this.props.deleteUser.bind(this)}/>
               <hr/>
@@ -59,4 +57,4 @@ class UserGrid extends Component {
 }
 
 
-export default UserGrid;
+export default StoreUserGrid;

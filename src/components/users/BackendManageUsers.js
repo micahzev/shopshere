@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Topbar from '~/src/components/Topbar/Topbar';
-import UserGrid from '~/src/components/users/UserGrid';
-import AddUser from '~/src/components/users/AddUser';
+
+import StoreUserGrid from '~/src/components/users/StoreUserGrid';
+import AddStoreUser from '~/src/components/users/AddStoreUser';
 
 import { Button, Glyphicon } from 'react-bootstrap';
 
 import '~/src/styles/admin-users.css';
 
 import fetch from '~/src/components/fetch';
-import { fetchShops } from '~/src/actions/shops';
-import { fetchUsers, unboundAddUser, unboundPatchUser, deleteUser } from '~/src/actions/users';
+import { fetchUsers, unboundAddUser, unboundPatchUser, deleteUser  } from '~/src/actions/users';
 
-class ManageUsers extends Component {
+class BackendManageUsers extends Component {
 
   constructor(props) {
     super(props);
@@ -36,7 +36,6 @@ class ManageUsers extends Component {
   }
 
   async addUser(userObject) {
-
 
      await this.props.boundAddUser(userObject);
 
@@ -64,12 +63,16 @@ class ManageUsers extends Component {
     this.props.fetchUsers();
   }
 
+
   render() {
 
+    const shopID = window.localStorage.getItem('value');
+
     const {
-      shops,
       users
     } = this.props;
+
+    const myUsers = _.filter(users, {shopid:shopID})
 
     return (
       <div className="categories container content-box">
@@ -83,16 +86,14 @@ class ManageUsers extends Component {
             <button className="add-user-btn" onClick={ this.open.bind(this) }>
               <Glyphicon glyph="plus" /> Add New User
             </button>
-            <AddUser
+            <AddStoreUser
               show={this.state.showAddUserModal}
-              shops={shops}
               close={this.close.bind(this)}
-              addUser={this.addUser.bind(this)} />
+              addUser={this.addUser.bind(this)}/>
           </div>
           <hr/>
-          <UserGrid
-              shops={shops}
-              users={users}
+          <StoreUserGrid
+              users={myUsers}
               boundPatchUser={this.editUser.bind(this)}
               deleteUser={this.deleteUser.bind(this)}/>
           </div>
@@ -103,22 +104,19 @@ class ManageUsers extends Component {
 }
 
 
-const FetchedManageUsers = fetch(ManageUsers, {
-  actions: [ fetchShops, fetchUsers ]
+const FetchedManageUsers = fetch(BackendManageUsers, {
+  actions: [ fetchUsers ]
 });
 
 function mapStateToProps(state) {
-  const shops = state.shops;
   const users = state.users;
   return {
-    shops,
-    users
+    users,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchShops: bindActionCreators(fetchShops, dispatch),
     fetchUsers: bindActionCreators(fetchUsers, dispatch),
     boundAddUser: bindActionCreators(unboundAddUser, dispatch),
     boundPatchUser: bindActionCreators(unboundPatchUser, dispatch),

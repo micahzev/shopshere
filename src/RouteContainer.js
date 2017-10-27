@@ -28,6 +28,7 @@ import BackendHome from '~/src/components/backend/BackendHome.js';
 import BackendProducts from '~/src/components/products/BackendProducts.js';
 import BackendViewpoints from '~/src/components/viewpoints/BackendViewpoints.js';
 import BackendSettingsWrapper from '~/src/components/backend/BackendSettingsWrapper.js';
+import BackendManageUsers from '~/src/components/users/BackendManageUsers.js';
 
 
 
@@ -104,7 +105,7 @@ class RouteContainer extends Component {
                   </Route>
                   <Route path="/backend/settings" component={ BackendSettingsWrapper }>
                   </Route>
-                  <Route path="/backend/managers" component={ BackendHome }>
+                  <Route path="/backend/managers" component={ BackendManageUsers }>
                   </Route>
               </Route>
           </Route>

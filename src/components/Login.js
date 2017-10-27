@@ -6,6 +6,8 @@ import { Input, ButtonInput, Modal, Button, DropdownButton, MenuItem, Grid, Row,
 import '~/node_modules/bootstrap/dist/css/bootstrap.css';
 import { routerMiddleware, push } from 'react-router-redux';
 
+import { fetchOneUser } from '~/src/actions/users';
+
 import {
   CognitoUserPool,
   AuthenticationDetails,
@@ -45,6 +47,29 @@ class Login extends Component {
       const storeId = decode(loggedIn.idToken.jwtToken)["custom:store-id"];
       const accessExpiry = decode(loggedIn.accessToken.jwtToken)["exp"];
 
+      let email = document.getElementById('email').value;
+
+      try {
+        const userDetails = await this.props.fetchOneUser({
+          id:email
+        });
+      } catch(e) {
+        this.setState({
+            userMessage:'There was an error logging you in. Contact shopsure support for help logging in.'
+          });
+          return;
+      }
+
+      const userDetails = await this.props.fetchOneUser({
+        id:email
+      });
+
+      if (userDetails.userStatus != 'enabled') {
+        this.setState({
+            userMessage:'You cannot login at this time. Please contact shopsure support for help logging into your account.'
+          });
+          return;
+      }
 
 
       const epochNow = Math.round(new Date().getTime()/1000.0);
@@ -60,6 +85,10 @@ class Login extends Component {
               } else {
                   this.props.history.push('/backend');
               }
+      } else {
+        this.setState({
+          userMessage:'Your login session has expired. Relogin to refresh your login session.'
+        })
       }
 
 
@@ -138,4 +167,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchOneUser: bindActionCreators(fetchOneUser, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

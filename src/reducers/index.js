@@ -14,6 +14,11 @@ const user = (state, action) => {
   switch (action.type) {
     case types.ADD_USER_FULFILLED:
       return action.payload;
+    case types.EDIT_USER_FULFILLED:
+      if (state.id !== action.payload.id) {
+        return state;
+      }
+      return action.payload;
     case 'ADD_SHOP_TO_USER':
       if (state.userid !== action.userid) {
         return state;
@@ -50,6 +55,15 @@ const users = (state = [], action) => {
       ];
     case types.FETCH_USERS_FULFILLED:
       return action.payload;
+    case types.FETCH_ONE_USER_FULFILLED:
+      return action.payload;
+    case types.EDIT_USER_FULFILLED:
+      return state.map(t => user(t, action));
+    case types.DELETE_USER_FULFILLED:
+      return [
+        ...state.slice(0, action.payload.index),
+        ...state.slice(action.payload.index + 1)
+      ]
     case 'ADD_SHOP_TO_USER':
       return state.map(t => user(t, action));
     case 'TOGGLE_LOGGED_IN':

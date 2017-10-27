@@ -10,7 +10,7 @@ import ViewEditShop from '~/src/components/stores/ViewEditShop';
 import '~/src/styles/store-admin.css';
 
 
-class UserTableRow extends Component {
+class StoreUserTableRow extends Component {
 
   constructor(props) {
       super(props);
@@ -35,40 +35,40 @@ class UserTableRow extends Component {
     })
   }
 
-  onConfirmDisable() {
 
-    const userId = this.props.user.id;
+    onConfirmDisable() {
 
-    const updateObject = {
-      id:userId,
-      userStatus:"disabled"
-    };
+      const userId = this.props.user.id;
 
-    this.props.boundPatchUser(updateObject);
+      const updateObject = {
+        id:userId,
+        userStatus:"disabled"
+      };
 
-  }
+      this.props.boundPatchUser(updateObject);
+
+    }
 
 
-  onConfirmEnable() {
+    onConfirmEnable() {
 
-        const userId = this.props.user.id;
+          const userId = this.props.user.id;
 
-        const updateObject = {
-          id:userId,
-          userStatus:"enabled"
-        };
+          const updateObject = {
+            id:userId,
+            userStatus:"enabled"
+          };
 
-        this.props.boundPatchUser(updateObject);
-  }
+          this.props.boundPatchUser(updateObject);
+    }
 
-  onConfirmDelete() {
+    onConfirmDelete() {
 
-    const userId = this.props.user.id;
+      const userId = this.props.user.id;
 
-    this.props.deleteUser(userId);
+      this.props.deleteUser(userId);
 
-  }
-
+    }
 
   onConfirmPasswordReset() {
 
@@ -77,13 +77,18 @@ class UserTableRow extends Component {
   render() {
 
     const {
-      user,
-      shops
+      user
     } = this.props;
 
-    const associatedStore = user.userType.slice(0,5) == "store" ? _.find(shops, {'id':user.shopid}) : {name:""};
 
-    const storeInfo = associatedStore.name != "" ? "Store : " + associatedStore.name : "";
+    const email = window.localStorage.getItem('username');
+
+    const isMe = email == user.id ? true : false;
+
+    const isMeStyle = email == user.id ? {'visibility':'hidden'} : {};
+
+
+
 
     const enabled = user.userStatus == "enabled" ? true : false;
 
@@ -99,14 +104,16 @@ class UserTableRow extends Component {
         <div className="tableCell">
           <div>{user.userType}</div>
 
-          <div>{storeInfo}</div>
+
         </div>
         <div className="tableCell">
           <div>{user.userStatus}</div>
         </div>
         <div className="actionCell">
 
-        {/*<Confirm
+        {isMe? "My Account!" :null}
+        <div style={isMeStyle}>
+        {/*}<Confirm
              onConfirm={this.onConfirmPasswordReset.bind(this)}
              body={"Send password reset link to "+ user.id + "?"}
              confirmText="Confirm Password Reset Link Send"
@@ -128,22 +135,18 @@ class UserTableRow extends Component {
                 <button className="activateButton">Enable</button>
             </Confirm>}
 
-
-              <Confirm
-                   onConfirm={this.onConfirmDelete.bind(this)}
-                   body={"Are you sure you want to delete "+ user.id + "? (this can't be undone)"}
-                   confirmText="Confirm User Delete"
-                   title="Confirm Delete">
-                   <button className="rejectButton">Delete User</button>
-               </Confirm>
-
-
-
-
+            <Confirm
+                 onConfirm={this.onConfirmDelete.bind(this)}
+                 body={"Are you sure you want to delete "+ user.id + "? (this can't be undone)"}
+                 confirmText="Confirm User Delete"
+                 title="Confirm Delete">
+                 <button className="rejectButton">Delete User</button>
+             </Confirm>
+             </div>
         </div>
       </div>
       );
   }
 }
 
-export default UserTableRow;
+export default StoreUserTableRow;
