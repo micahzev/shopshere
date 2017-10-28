@@ -9,10 +9,21 @@ import { fetchShops } from '~/src/actions/shops';
 import { LinkContainer } from 'react-router-bootstrap';
 import '~/src/styles/backend.css';
 
+import CompleteSignUp from '~/src/components/backend/CompleteSignUp';
+
 class BackendHome extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      showSuccess:false
+    }
+  }
+
+  signUpComplete(){
+    this.setState({
+      showSuccess:true
+    });
   }
 
   render() {
@@ -30,7 +41,15 @@ class BackendHome extends Component {
           </div>
           <div className="shop-details">
             Status: {myshop.name} is currently <u>{myshop.visible? "visible" : "not visible"}</u> on the ShopSure platform.
+
+            {this.state.showSuccess ? <div className="success-signup">Store Set Up Complete! <br/> Start by adding some Products and Viewpoints to your store by clicking on the links above &#11014; </div> : null}
+
           </div>
+
+          {myshop.isNew ? <CompleteSignUp
+            signUpComplete={this.signUpComplete.bind(this)}
+            shop={myshop}
+             /> :null}
         </div>
       </div>
       );

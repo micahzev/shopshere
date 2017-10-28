@@ -61,6 +61,7 @@ class TableRow extends Component {
       entranceViewpoint: undefined,
       visible: false,
       isActivated:false,
+      isNew:true
     };
 
     this.props.approveApplication(createShopObject, this.props.application);

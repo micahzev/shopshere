@@ -13,9 +13,13 @@ import { fetchCategories } from '~/src/actions/categories';
 import { fetchApplications } from '~/src/actions/applications';
 import { fetchUsers } from '~/src/actions/users';
 import { unboundPatchApplication, deleteApplication } from '~/src/actions/applications';
-import { unboundAddShop } from '~/src/actions/shops';
+import { unboundAddShop, unboundPatchShop } from '~/src/actions/shops';
 import { unboundAddUser } from '~/src/actions/users';
+import { unboundAddViewpoint } from '~/src/actions/viewpoints';
+
 import request from 'superagent';
+
+
 
 import crypto from 'crypto';
 
@@ -131,6 +135,22 @@ emailUser(email, password){
 
             // create new shop
             const createdShop = await this.props.boundAddShop(shopObject);
+
+            // create default entranceViewpoint for shop
+
+            const defaultViewpoint = await this.props.boundAddViewpoint({
+              name: "Default Entrance",
+              shop: createdShop.id,
+              imageFile: 'https://s3-us-west-2.amazonaws.com/shopsphere/viewpoint-images/360default.jpg',
+              thumbnailFile: 'https://s3-us-west-2.amazonaws.com/shopsphere/viewpoint-images/defaultThumbnail.jpg'
+            });
+
+            const patchShopObject = {
+              id: createdShop.id,
+              entranceViewpoint: defaultViewpoint.id
+            };
+
+            await this.props.boundPatchShop(patchShopObject);
 
             // create temp password for user
             const tempPW = this.makeid();
@@ -274,6 +294,8 @@ function mapDispatchToProps(dispatch) {
     boundAddShop: bindActionCreators(unboundAddShop, dispatch),
     boundAddUser: bindActionCreators(unboundAddUser, dispatch),
     deleteApplication: bindActionCreators(deleteApplication, dispatch),
+    boundAddViewpoint: bindActionCreators(unboundAddViewpoint, dispatch),
+    boundPatchShop: bindActionCreators(unboundPatchShop, dispatch)
   };
 }
 
