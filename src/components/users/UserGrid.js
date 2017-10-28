@@ -20,6 +20,11 @@ class UserGrid extends Component {
       users
     } = this.props;
 
+    if (!(users instanceof Array)) {
+      users = [];
+    }
+
+    const userCollection = !users ? [] : users;
 
     return (
       <div className="storeGrid">
@@ -41,7 +46,7 @@ class UserGrid extends Component {
           </div>
         </div>
         <hr className="rule"/>
-        {users.map((user)=>{
+        {userCollection.map((user)=>{
           return (
             <div key={user.id}>
               <UserTableRow

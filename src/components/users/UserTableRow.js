@@ -81,7 +81,9 @@ class UserTableRow extends Component {
       shops
     } = this.props;
 
-    const associatedStore = user.userType.slice(0,5) == "store" ? _.find(shops, {'id':user.shopid}) : {name:""};
+    const associatedStore = this.props.shops.length != 0 ?
+    (user.userType.slice(0,5) == "store" ? _.find(shops, {'id':user.shopid}) : {name:""})
+     : {name:""};
 
     const storeInfo = associatedStore.name != "" ? "Store : " + associatedStore.name : "";
 
