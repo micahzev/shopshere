@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import Topbar from '~/src/components/Topbar/Topbar';
 import StoreGrid from '~/src/components/stores/StoreGrid';
+import MyShopsAddShop from '~/src/components/MyShopsAddShop';
 
 import fetch from '~/src/components/fetch';
 import { fetchCategories } from '~/src/actions/categories';
@@ -72,8 +73,13 @@ async PatchShop(patchObject) {
         <div className="row store-section">
           <div className="parent-of-store">
             <h1 className="title">Manage Stores</h1>
+            <div className="add-shop-button">
+              <MyShopsAddShop categories={ categories } />
+            </div>
           </div>
+
           <div className="store-details">
+
           <hr/>
           <StoreGrid
               shops={shops}
