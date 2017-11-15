@@ -13,7 +13,6 @@ class Shops extends Component {
   render() {
     return (
       <div>
-        <Topbar />
         <div className='container content-box'>
           <div className='row'>
             <div className="column container-header">Shops</div>

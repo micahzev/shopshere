@@ -95,6 +95,10 @@ class RouteContainer extends Component {
                   </Route>
                   <Route path="/admin-backend/users" component={ ManageUsers }>
                   </Route>
+                  <Route path="/admin-backend/manage" component={ Shops }>
+                    <Route path="/admin-backend/manage/:name" component={ Shop }>
+      	            </Route>
+                  </Route>
               </Route>
               <Route path="/backend" onEnter={this.checkBackendAdminAuth} component={ Backend }>
                   <Route path="/backend/home" component={ BackendHome }>

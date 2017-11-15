@@ -26,6 +26,7 @@ class AdminHome extends Component {
               <LinkContainer className="adminlink" to={{ pathname: `/admin-backend/categories` }}><pre><span className="fleche">&#10132; </span> Manage Categories</pre></LinkContainer>
               <LinkContainer className="adminlink" to={{ pathname: `/admin-backend/applications` }}><pre><span className="fleche">&#10132; </span> Manage Vendor Applications</pre></LinkContainer>
               <LinkContainer className="adminlink" to={{ pathname: `/admin-backend/users` }}><pre><span className="fleche">&#10132; </span> Manage Backend Users</pre></LinkContainer>
+              <LinkContainer className="adminlink" to={{ pathname: `/admin-backend/manage` }}><pre><span className="fleche">&#10132; </span> Edit All Store Information</pre></LinkContainer>
             </span>
           </div>
         </div>

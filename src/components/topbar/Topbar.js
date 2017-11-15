@@ -63,7 +63,7 @@ render() {
 									<LinkContainer to={ { pathname: `/admin-backend/applications` } }>
 										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/admin-backend/applications'">
 											<span className="b-icon"><Glyphicon glyph="pencil" /></span>
-											<span className="b-text">Vendor Applications</span>
+											<span className="b-text">Vendor<br/>Applications</span>
 										</button>
 									</LinkContainer>
 								</div>
@@ -73,6 +73,15 @@ render() {
 										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/admin-backend/users'">
 											<span className="b-icon"><Glyphicon glyph="user" /></span>
 											<span className="b-text">Users</span>
+										</button>
+									</LinkContainer>
+								</div>
+
+								<div className="b-topbar-section b-topbar-section-storedirectory">
+									<LinkContainer to={ { pathname: `/admin-backend/manage` } }>
+										<button className="b-topbar-button" id="b-topbar-button-categories" onclick="location.href = '/admin-backend/manage'">
+											<span className="b-icon"><Glyphicon glyph="folder-close" /></span>
+											<span className="b-text">Edit All<br/>Store Information</span>
 										</button>
 									</LinkContainer>
 								</div>

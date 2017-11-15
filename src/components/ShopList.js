@@ -52,13 +52,13 @@ class ShopList extends Component {
         <Nav className="shop-list" activeKey={ this.state.activeTab } >
 
           { categoriedShopsArray.map((categoriedShops) => {
-            return <div>
+            return <div key={ categoriedShops.category }>
               <LinkContainer className='category-text' key={ categoriedShops.category } to={ { pathname: `#` } }>
                       <NavItem eventKey={ categoriedShops.category } key={ categoriedShops.category } >
                         { categoriedShops.category }
                       </NavItem>
                     </LinkContainer>
-                    { categoriedShops.shops.map((shop, index) => <LinkContainer key={ index } to={ { pathname: `/shops/${shop.name}` } }>
+                    { categoriedShops.shops.map((shop, index) => <LinkContainer key={ index } to={ { pathname: `/admin-backend/manage/${shop.name}` } }>
                                                               <NavItem eventKey={ index } key={ index } onClick={ this.clickHandler.bind(this, index) }>
                                                                 { shop.name }
                                                               </NavItem>
