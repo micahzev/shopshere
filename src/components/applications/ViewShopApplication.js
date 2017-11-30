@@ -30,6 +30,13 @@ class ViewShopApplication extends Component {
         province: this.props.application.province,
         postcode: this.props.application.postcode,
         storeLogo: this.props.application.storeLogo,
+        storeDescription: this.props.application.storeDescription,
+        storePlan: this.props.application.storePlan,
+        applicantName: this.props.application.applicantName,
+        applicantSurname: this.props.application.applicantSurname,
+        applicantTelephone: this.props.application.applicantTelephone,
+        applicantEmail: this.props.application.applicantEmail,
+        applicantCompany: this.props.application.applicantCompany,
         changeImage: false,
         submitDisabled: false,
       };
@@ -50,6 +57,13 @@ class ViewShopApplication extends Component {
             province: nextProps.application.province,
             postcode: nextProps.application.postcode,
             storeLogo: nextProps.application.storeLogo,
+            storeDescription: nextProps.application.storeDescription,
+            storePlan: nextProps.application.storePlan,
+            applicantName: nextProps.application.applicantName,
+            applicantSurname: nextProps.application.applicantSurname,
+            applicantTelephone: nextProps.application.applicantTelephone,
+            applicantEmail: nextProps.application.applicantEmail,
+            applicantCompany: nextProps.application.applicantCompany,
         })
       }
   };
@@ -112,7 +126,14 @@ class ViewShopApplication extends Component {
       storeCity: this.state.storeCity,
       province: this.state.province,
       postcode: this.state.postcode,
-      storeLogo: this.state.storeLogo
+      storeLogo: this.state.storeLogo,
+      applicantName: this.state.applicantName,
+      applicantSurname: this.state.applicantSurname,
+      applicantTelephone: this.state.applicantTelephone,
+      applicantEmail: this.state.applicantEmail,
+      applicantCompany: this.state.applicantCompany,
+      storePlan: this.state.storePlan,
+      storeDescription: this.state.storeDescription,
     }
 
     this.props.boundPatchApplication(updateObject);
@@ -133,6 +154,13 @@ class ViewShopApplication extends Component {
         province: this.props.application.province,
         postcode: this.props.application.postcode,
         storeLogo: this.props.application.storeLogo,
+        applicantName: this.props.application.applicantName,
+        applicantSurname: this.props.application.applicantSurname,
+        applicantTelephone: this.props.application.applicantTelephone,
+        applicantEmail: this.props.application.applicantEmail,
+        applicantCompany: this.props.application.applicantCompany,
+        storePlan: this.props.application.storePlan,
+        storeDescription: this.props.application.storeDescription,
         changeImage: false,
         submitDisabled: false,
     })
@@ -157,12 +185,16 @@ class ViewShopApplication extends Component {
                     </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-
                     <div className="view-data">Applicant Name: <span className="data-variable">{application.applicantName} {application.applicantSurname}</span></div>
+                    <div className="view-data">Applicant Telephone: <span className="data-variable">{application.applicantTelephone}</span></div>
+                    <div className="view-data">Applicant Email: <span className="data-variable">{application.applicantEmail}</span></div>
+                    <div className="view-data">Applicant Company: <span className="data-variable">{application.applicantCompany}</span></div>
                     <div className="view-data">Application Date: <span className="data-variable">{receivedDate.toString().slice(0, 25)}</span></div>
                     <hr/>
                     <form>
                           <FormInputArea name="storeName" label="Store Name" onChange={this.handleInputChange.bind(this)} value={this.state.storeName} />
+                          <FormInputArea name="storeDescription" label="Description" onChange={this.handleInputChange.bind(this)} value={this.state.storeDescription} />
+                          <FormInputArea name="storePlan" label="Plan" onChange={this.handleInputChange.bind(this)} value={this.state.storePlan} />
                           <label>
                             Category
                             <select name="storeCategory" value={this.state.storeCategory} onChange={this.handleInputChange.bind(this)}>

@@ -164,7 +164,7 @@ emailUser(email, password){
               userName: applicationObject.applicantName,
               userSurname: applicationObject.applicantSurname,
               shopid: createdShop.id,
-              userTelephone: applicationObject.storeTelephone,
+              userTelephone: applicationObject.applicantTelephone,
               userStatus:"enabled"
             });
 

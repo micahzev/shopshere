@@ -34,7 +34,6 @@ class BackendHome extends Component {
 
     return (
       <div className="categories container content-box">
-
         { myshop ?
           <div className="row shops-section">
           <div className="parent-of-list">

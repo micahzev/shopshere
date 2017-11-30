@@ -7,7 +7,6 @@ import Confirm from 'react-confirm-bootstrap';
 
 import '~/src/styles/applications.css';
 
-import ViewApplication from '~/src/components/applications/ViewApplication';
 import ApproveApplication from '~/src/components/applications/ApproveApplication';
 import RejectApplication from '~/src/components/applications/RejectApplication';
 import ViewShopApplication from '~/src/components/applications/ViewShopApplication';
@@ -55,8 +54,9 @@ class ApprovedTableRow extends Component {
         </div>
         <div className="tableCell">
           <div>{application.applicantName} {application.applicantSurname}</div>
-          <div>{application.storeEmail}</div>
-          <div>{application.storeTelephone}</div>
+          <div>{application.applicantCompany}</div>
+          <div>{application.applicantEmail}</div>
+          <div>{application.applicantTelephone}</div>
         </div>
         <div className="statusTableCell">
           <div>{application.applicationStatus}</div>
