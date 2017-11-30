@@ -34,23 +34,27 @@ class BackendHome extends Component {
 
     return (
       <div className="categories container content-box">
-        <div className="row shops-section">
+
+        { myshop ?
+          <div className="row shops-section">
           <div className="parent-of-list">
             <Image src={ myshop.logoFile } responsive />
             <div className="owner-hello">Welcome to <u>{myshop.name}</u> Backend ShopSure Administration</div>
           </div>
           <div className="shop-details">
             Status: {myshop.name} is currently <u>{myshop.visible? "visible" : "not visible"}</u> on the ShopSure platform.
-
             {this.state.showSuccess ? <div className="success-signup">Store Set Up Complete! <br/> Start by adding some Products and Viewpoints to your store by clicking on the links above &#11014; </div> : null}
-
           </div>
-
           {myshop.isNew ? <CompleteSignUp
             signUpComplete={this.signUpComplete.bind(this)}
             shop={myshop}
              /> :null}
-        </div>
+          </div>
+           :
+           <div>
+            Loading...
+           </div>
+        }
       </div>
       );
   }
