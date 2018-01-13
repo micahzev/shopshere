@@ -11,14 +11,15 @@ import { fetchOneUser } from '~/src/actions/users';
 import {
   CognitoUserPool,
   AuthenticationDetails,
-  CognitoUser
+  CognitoUser,
+  CookieStorage
 } from "amazon-cognito-identity-js";
 
 import decode from 'jwt-decode';
 
 import '~/src/styles/login.css';
 
-import { UserPoolId, ClientId } from '~/src/config';
+import { UserPoolId, ClientId, ApplicationDomain } from '~/src/config';
 
 class Login extends Component {
 
@@ -112,10 +113,15 @@ class Login extends Component {
 
     const userPool = new CognitoUserPool({
       UserPoolId: UserPoolId,
-      ClientId: ClientId
+      ClientId: ClientId,
+      Storage: new CookieStorage({domain: ApplicationDomain})
     });
 
-    const user = new CognitoUser({ Username: email, Pool: userPool });
+    const user = new CognitoUser({
+      Username: email,
+      Pool: userPool,
+      Storage: new CookieStorage({domain: ApplicationDomain})
+     });
     const authenticationData = { Username: email, Password: secret };
     const authenticationDetails = new AuthenticationDetails(authenticationData);
 

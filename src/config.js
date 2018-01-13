@@ -10,5 +10,6 @@ module.exports = {
   apiURL2: 'https://smbm8cf4nk.execute-api.us-west-2.amazonaws.com/prod/',
   emailAPI:'https://h6jcqx4m7c.execute-api.us-west-2.amazonaws.com/prod/',
   UserPoolId: "us-west-2_ZkVqszFmk",
-  ClientId: "29jpg9roroortd1tif1ott3djr"
+  ClientId: "29jpg9roroortd1tif1ott3djr",
+  ApplicationDomain: ".shopsure.co.za"
 };
