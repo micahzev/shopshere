@@ -99,7 +99,7 @@ class StoreUserTableRow extends Component {
           <div>{user.userTelephone}</div>
         </div>
         <div className="tableCell">
-          <div>{user.id}</div>
+          <div>{user.userEmail}</div>
         </div>
         <div className="tableCell">
           <div>{user.userType}</div>
@@ -123,13 +123,13 @@ class StoreUserTableRow extends Component {
 
         {enabled ?  <Confirm
               onConfirm={this.onConfirmDisable.bind(this)}
-              body={"Are you sure you want to disable "+ user.id + "?"}
+              body={"Are you sure you want to disable "+ user.userEmail + "?"}
               confirmText="Confirm User Disable"
               title="Confirm Disable">
               <button className="deactivateButton">Disable User</button>
           </Confirm> :   <Confirm
                 onConfirm={this.onConfirmEnable.bind(this)}
-                body={"Are you sure you want to enable "+ user.id + "?"}
+                body={"Are you sure you want to enable "+ user.userEmail + "?"}
                 confirmText="Confirm User Enable"
                 title="Confirm Enable">
                 <button className="activateButton">Enable</button>
@@ -137,7 +137,7 @@ class StoreUserTableRow extends Component {
 
             <Confirm
                  onConfirm={this.onConfirmDelete.bind(this)}
-                 body={"Are you sure you want to delete "+ user.id + "? (this can't be undone)"}
+                 body={"Are you sure you want to delete "+ user.userEmail + "? (this can't be undone)"}
                  confirmText="Confirm User Delete"
                  title="Confirm Delete">
                  <button className="rejectButton">Delete User</button>

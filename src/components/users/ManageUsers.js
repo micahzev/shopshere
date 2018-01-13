@@ -46,6 +46,8 @@ class ManageUsers extends Component {
 
     await this.props.boundPatchUser(updateObject);
 
+    this.props.fetchUsers();
+
   }
 
   async deleteUser(userId) {
@@ -58,6 +60,8 @@ class ManageUsers extends Component {
     };
 
     await this.props.deleteUser(deleteObject);
+
+    this.props.fetchUsers();
 
 
   }
