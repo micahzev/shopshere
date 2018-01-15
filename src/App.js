@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { Button } from 'react-bootstrap';
 import Navbar from './Navbar.js';
+import { CookiesProvider } from 'react-cookie';
 
 
 class Welcome extends Component {

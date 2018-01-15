@@ -12,4 +12,5 @@ module.exports = {
   UserPoolId: "us-west-2_ZkVqszFmk",
   ClientId: "29jpg9roroortd1tif1ott3djr",
   ApplicationDomain: ".shopsure.co.za"
+  // ApplicationDomain: "localhost"
 };

@@ -8,6 +8,8 @@ import { routerMiddleware, push } from 'react-router-redux';
 
 import { fetchOneUser } from '~/src/actions/users';
 
+import { withCookies, Cookies } from 'react-cookie';
+
 import {
   CognitoUserPool,
   AuthenticationDetails,
@@ -80,6 +82,13 @@ class Login extends Component {
 
       window.localStorage.setItem('value', storeId);
 
+
+      console.log("Post Login LocalStorage:");
+      console.log(localStorage);
+      console.log(document.cookie);
+      console.log(ApplicationDomain);
+
+
       if (epochNow < accessExpiry) {
               if ( storeId == 'admin'){
                   this.props.history.push('/admin-backend');
@@ -114,13 +123,19 @@ class Login extends Component {
     const userPool = new CognitoUserPool({
       UserPoolId: UserPoolId,
       ClientId: ClientId,
-      Storage: new CookieStorage({domain: ApplicationDomain})
+      Storage: new CookieStorage({
+        domain: ApplicationDomain,
+        secure: false
+      })
     });
 
     const user = new CognitoUser({
       Username: email,
       Pool: userPool,
-      Storage: new CookieStorage({domain: ApplicationDomain})
+      Storage: new CookieStorage({
+        domain: ApplicationDomain,
+        secure: false
+      })
      });
     const authenticationData = { Username: email, Password: secret };
     const authenticationDetails = new AuthenticationDetails(authenticationData);
@@ -152,6 +167,11 @@ class Login extends Component {
   render() {
 
     const emailAddress = this.props.params.email ? this.props.params.email : "";
+
+    console.log("Initial LocalStorage:");
+    console.log(localStorage);
+    console.log(document.cookie);
+    console.log(ApplicationDomain);
 
     return (
       <div className="login-form">

@@ -8,13 +8,16 @@ import configureStore from './store/configureStore';
 import RouteContainer from './RouteContainer.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { testActions } from './actions/testActions.js';
+import { CookiesProvider } from 'react-cookie';
 injectTapEventPlugin();
 
 const store = configureStore();
 
 render(
   <Provider store={store}>
-    <RouteContainer store={store} />
+    <CookiesProvider>
+      <RouteContainer store={store} />
+    </CookiesProvider>
   </Provider>,
   document.getElementById('root')
 );
