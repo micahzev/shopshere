@@ -17,16 +17,12 @@ class Topbar extends Component {
 		window.localStorage.setItem('value', null);
 		if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
 
-			console.log("here");
-
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser',"");
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken',"");
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken',"");
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken',"");
-
-			console.log("there");
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser', { domain: ApplicationDomain });
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken', { domain: ApplicationDomain });
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken', { domain: ApplicationDomain });
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken', { domain: ApplicationDomain });
 		}
 		this.props.history.push('/login');
 	}

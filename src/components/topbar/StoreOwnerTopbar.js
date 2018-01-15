@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Glyphicon } from 'react-bootstrap';
-import { ClientId } from '~/src/config';
+import { ClientId, ApplicationDomain } from '~/src/config';
 import { withCookies } from 'react-cookie';
 
 
@@ -19,10 +19,10 @@ class StoreOwnerTopbar extends Component {
 
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser',"");
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken',"");
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken',"");
-			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken',"");
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser', { domain: ApplicationDomain });
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken', { domain: ApplicationDomain });
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken', { domain: ApplicationDomain });
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken', { domain: ApplicationDomain });
 		}
 		this.props.history.push('/login');
 	}
