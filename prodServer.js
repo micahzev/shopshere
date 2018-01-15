@@ -1,11 +1,11 @@
 var express = require('express');
-var cookiesMiddleware = require('universal-cookie-express');
+
 
 var app = express();
 var port = process.env.PORT || 3000;
 
 // serve the files out of ./dist as our main files
-app.use(cookiesMiddleware());
+
 app.use(express.static('dist'));
 
 app.all('*', function(req, res) {
