@@ -4,7 +4,6 @@ import { Glyphicon } from 'react-bootstrap';
 import { ClientId, ApplicationDomain } from '~/src/config';
 import { withCookies } from 'react-cookie';
 
-
 class StoreOwnerTopbar extends Component {
 
 	constructor(props) {

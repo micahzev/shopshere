@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Glyphicon } from 'react-bootstrap';
-import { ClientId } from '~/src/config';
+import { ClientId, ApplicationDomain } from '~/src/config';
 import { withCookies } from 'react-cookie';
 
 class Topbar extends Component {
@@ -9,7 +9,6 @@ class Topbar extends Component {
 	constructor(props) {
     super(props);
   }
-
 
 	async signOut(){
 	  window.localStorage.setItem('secretKey', null);
