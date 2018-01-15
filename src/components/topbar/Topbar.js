@@ -15,6 +15,10 @@ class Topbar extends Component {
 	  window.localStorage.setItem('secretKey', null);
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
+
+		console.log("Here");
+		console.log(this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser'));
+
 		if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
