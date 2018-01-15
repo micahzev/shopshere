@@ -11,7 +11,7 @@ class StoreOwnerTopbar extends Component {
     super(props);
   }
 
-	signOut(){
+	async signOut(){
 	  window.localStorage.setItem('secretKey', null);
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
@@ -19,10 +19,10 @@ class StoreOwnerTopbar extends Component {
 
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser', { domain: ApplicationDomain });
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken', { domain: ApplicationDomain });
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken', { domain: ApplicationDomain });
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken', { domain: ApplicationDomain });
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser', { domain: ApplicationDomain });
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken', { domain: ApplicationDomain });
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken', { domain: ApplicationDomain });
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken', { domain: ApplicationDomain });
 		}
 		this.props.history.push('/login');
 	}
