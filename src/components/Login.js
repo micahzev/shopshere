@@ -121,6 +121,7 @@ class Login extends Component {
       ClientId: ClientId,
       Storage: new CookieStorage({
         domain: ApplicationDomain,
+        path: '/',
         secure: false
       })
     });
@@ -130,6 +131,7 @@ class Login extends Component {
       Pool: userPool,
       Storage: new CookieStorage({
         domain: ApplicationDomain,
+        path: '/',
         secure: false
       })
      });
