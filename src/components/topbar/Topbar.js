@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Glyphicon } from 'react-bootstrap';
-// import { connect } from 'react-redux';
-// import { Link } from 'react-router';
-// import { bindActionCreators } from 'redux';
-// import { Input, ButtonInput, Modal, Button, DropdownButton, MenuItem, Grid, Row, Col, Alert, Glyphicon } from 'react-bootstrap';
+import { ClientId } from '~/src/config';
+import { withCookies } from 'react-cookie';
 
 class Topbar extends Component {
 
@@ -17,6 +15,14 @@ class Topbar extends Component {
 	  window.localStorage.setItem('secretKey', null);
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
+		if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
+			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
+
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken');
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken');
+			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken');
+		}
 		this.props.history.push('/login');
 	}
 
@@ -112,4 +118,4 @@ render() {
 
 }
 
-export default Topbar;
+export default withCookies(Topbar);

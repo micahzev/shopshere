@@ -8,7 +8,7 @@ import { routerMiddleware, push } from 'react-router-redux';
 
 import { fetchOneUser } from '~/src/actions/users';
 
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 
 import {
   CognitoUserPool,
@@ -33,9 +33,12 @@ class Login extends Component {
   };
 
   componentDidMount() {
+    window.localStorage.removeItem('secretKey');
     window.localStorage.setItem('secretKey', null);
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
+
+    this.checkAuth();
 
   }
 
@@ -81,13 +84,6 @@ class Login extends Component {
       document.getElementById('password').value = "";
 
       window.localStorage.setItem('value', storeId);
-
-
-      console.log("Post Login LocalStorage:");
-      console.log(localStorage);
-      console.log(document.cookie);
-      console.log(ApplicationDomain);
-
 
       if (epochNow < accessExpiry) {
               if ( storeId == 'admin'){
@@ -160,18 +156,79 @@ class Login extends Component {
     this.props.history.push('/forgot');
   }
 
-  componentDidMount() {
-    window.localStorage.removeItem('secretKey');
+
+  async checkAuth() {
+
+    if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
+
+      const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
+
+      const idToken = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken');
+
+      const accessToken = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken');
+
+
+      const storeId = decode(idToken)["custom:store-id"];
+      const accessExpiry = decode(accessToken)["exp"];
+      const email = decode(idToken)["email"];
+
+      try {
+        const userDetails = await this.props.fetchOneUser({
+          id:email
+        });
+      } catch(e) {
+        this.setState({
+            userMessage:'There was an error logging you in. Contact shopsure support for help logging in.'
+          });
+          return;
+      }
+
+      const userDetails = await this.props.fetchOneUser({
+        id:email
+      });
+
+      if (userDetails.userStatus != 'enabled') {
+        this.setState({
+            userMessage:'You cannot login at this time. Please contact shopsure support for help logging into your account.'
+          });
+          return;
+      }
+
+
+      const epochNow = Math.round(new Date().getTime()/1000.0);
+
+      document.getElementById('email').value = "";
+      document.getElementById('password').value = "";
+
+      window.localStorage.setItem('value', storeId);
+
+      if (epochNow < accessExpiry) {
+              if ( storeId == 'admin'){
+                  this.props.history.push('/admin-backend');
+              } else {
+                  this.props.history.push('/backend');
+              }
+      } else {
+        this.setState({
+          userMessage:'Your login session has expired. Relogin to refresh your login session.'
+        })
+      }
+
+
+
+
+    } else {
+      return;
+    }
+
+
+
   }
 
   render() {
 
     const emailAddress = this.props.params.email ? this.props.params.email : "";
 
-    console.log("Initial LocalStorage:");
-    console.log(localStorage);
-    console.log(document.cookie);
-    console.log(ApplicationDomain);
 
     return (
       <div className="login-form">
@@ -204,4 +261,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withCookies(Login));
