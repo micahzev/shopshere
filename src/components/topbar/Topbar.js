@@ -22,10 +22,10 @@ class Topbar extends Component {
 		if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken');
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken');
-			this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken');
+			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser',"");
+			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken',"");
+			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken',"");
+			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken',"");
 		}
 		this.props.history.push('/login');
 	}
