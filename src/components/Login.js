@@ -8,7 +8,9 @@ import { routerMiddleware, push } from 'react-router-redux';
 
 import { fetchOneUser } from '~/src/actions/users';
 
-import { withCookies } from 'react-cookie';
+import { withCookies, Cookies } from 'react-cookie';
+
+import { instanceOf } from 'prop-types';
 
 import {
   CognitoUserPool,
@@ -31,6 +33,10 @@ class Login extends Component {
         userMessage: "",
       };
   };
+
+  static propTypes = {
+   cookies: instanceOf(Cookies).isRequired
+ };
 
   componentDidMount() {
     window.localStorage.removeItem('secretKey');

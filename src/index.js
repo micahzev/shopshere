@@ -16,7 +16,7 @@ const store = configureStore();
 render(
   <CookiesProvider>
     <Provider store={store}>
-        <RouteContainer store={store} />
+        <RouteContainer store={store}/>
       </Provider>
   </CookiesProvider>,
   document.getElementById('root')

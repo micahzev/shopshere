@@ -2,7 +2,7 @@ var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
-var cookiesMiddleware = require('universal-cookie-express');
+
 var port = process.env.PORT || 3000;
 
 var app = express();
@@ -14,8 +14,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
-
-app.use(cookiesMiddleware());
 
 app.use(express.static('public'));
 
