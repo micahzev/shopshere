@@ -18,10 +18,22 @@ class Topbar extends Component {
 
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
-			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser', { domain: ApplicationDomain });
-			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken', { domain: ApplicationDomain });
-			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken', { domain: ApplicationDomain });
-			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken', { domain: ApplicationDomain });
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser', {
+				domain: ApplicationDomain,
+				path: '/'
+			});
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken', {
+				domain: ApplicationDomain,
+				path: '/'
+			});
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken', {
+				domain: ApplicationDomain,
+				path: '/'
+			});
+			await this.props.cookies.remove('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken', {
+				domain: ApplicationDomain,
+				path: '/'
+			});
 		}
 		this.props.history.push('/login');
 	}

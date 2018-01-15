@@ -14,10 +14,10 @@ injectTapEventPlugin();
 const store = configureStore();
 
 render(
-  <Provider store={store}>
-    <CookiesProvider>
-      <RouteContainer store={store} />
-    </CookiesProvider>
-  </Provider>,
+  <CookiesProvider>
+    <Provider store={store}>
+        <RouteContainer store={store} />
+      </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 );
