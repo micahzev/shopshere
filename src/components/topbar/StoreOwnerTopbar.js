@@ -16,6 +16,7 @@ class StoreOwnerTopbar extends Component {
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
 		if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
+
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
 			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser',"");

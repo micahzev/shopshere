@@ -15,17 +15,18 @@ class Topbar extends Component {
 	  window.localStorage.setItem('secretKey', null);
 	  window.localStorage.setItem('username', null);
 		window.localStorage.setItem('value', null);
-
-		console.log("Here");
-		console.log(this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser'));
-
 		if (this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser')) {
+
+			console.log("here");
+
 			const loggedInID = this.props.cookies.get('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser');
 
 			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.LastAuthUser',"");
 			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.idToken',"");
 			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.accessToken',"");
 			this.props.cookies.set('CognitoIdentityServiceProvider.' + ClientId + '.' + loggedInID + '.refreshToken',"");
+
+			console.log("there");
 		}
 		this.props.history.push('/login');
 	}
